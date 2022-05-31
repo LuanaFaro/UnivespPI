@@ -28,7 +28,7 @@ prompt APPLICATION 35405 - Projeto DoAção
 -- Application Export:
 --   Application:     35405
 --   Name:            Projeto DoAção
---   Date and Time:   17:01 Tuesday May 31, 2022
+--   Date and Time:   22:24 Tuesday May 31, 2022
 --   Exported By:     2008214@ALUNO.UNIVESP.BR
 --   Flashback:       0
 --   Export Type:     Page Export
@@ -70,7 +70,14 @@ wwv_flow_imp_page.create_page(
 '</script>',
 '<script>',
 '  new window.VLibras.Widget(''https://vlibras.gov.br/app'');',
-'</script>'))
+'</script>',
+'',
+'<script>',
+'    (function(d){',
+'    var s = d.createElement("script");s.setAttribute("data-account", "uOkvGzylfZ");s.setAttribute("src", "https://cdn.userway.org/widget.js");',
+'    (d.body || d.head).appendChild(s);})(document)',
+'</script>',
+''))
 ,p_inline_css=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'body{',
 '    background-color: #d5d5d5;',
@@ -116,7 +123,7 @@ wwv_flow_imp_page.create_page(
 ,p_rejoin_existing_sessions=>'N'
 ,p_page_component_map=>'18'
 ,p_last_updated_by=>'2008214@ALUNO.UNIVESP.BR'
-,p_last_upd_yyyymmddhh24miss=>'20220531165927'
+,p_last_upd_yyyymmddhh24miss=>'20220531222351'
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(28778812357116289963)
