@@ -28,7 +28,7 @@ prompt APPLICATION 35405 - Projeto DoAção
 -- Application Export:
 --   Application:     35405
 --   Name:            Projeto DoAção
---   Date and Time:   22:34 Tuesday May 31, 2022
+--   Date and Time:   22:50 Tuesday May 31, 2022
 --   Exported By:     2008214@ALUNO.UNIVESP.BR
 --   Flashback:       0
 --   Export Type:     Page Export
@@ -250,7 +250,7 @@ wwv_flow_imp_page.create_page(
 ,p_rejoin_existing_sessions=>'N'
 ,p_page_component_map=>'18'
 ,p_last_updated_by=>'2008214@ALUNO.UNIVESP.BR'
-,p_last_upd_yyyymmddhh24miss=>'20220531223407'
+,p_last_upd_yyyymmddhh24miss=>'20220531225019'
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(28778812357116289963)
@@ -306,14 +306,13 @@ wwv_flow_imp_page.create_page_plug(
 '  from INSTITUICOES a, MUNICIPIO b',
 '  where ',
 '    a.FKEMUNICIPIO = b.id',
-'    and b.id = nvl(:P100_MUNICIPIO,b.id)',
 '    and (select  LISTAGG(lpad(d.id,10,0), ''</br>'')',
 '         WITHIN GROUP (ORDER BY d.STRITEM) "Emp_list"',
 '         from INSTITENSACEITOS c, ITENS d',
 '        where c.FKEINSTITUICOES = a.id',
 '        and c.FKEITENS = d.id) like ''%'' || nvl(:P100_ITENS,''%'') || ''%'''))
 ,p_plug_source_type=>'NATIVE_IR'
-,p_ajax_items_to_submit=>'P100_MUNICIPIO,P100_ITENS'
+,p_ajax_items_to_submit=>'P100_ITENS'
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_prn_content_disposition=>'ATTACHMENT'
 ,p_prn_units=>'INCHES'
@@ -351,7 +350,6 @@ wwv_flow_imp_page.create_worksheet(
 ,p_pagination_type=>'ROWS_X_TO_Y'
 ,p_pagination_display_pos=>'BOTTOM_RIGHT'
 ,p_show_search_bar=>'N'
-,p_report_list_mode=>'TABS'
 ,p_lazy_loading=>false
 ,p_show_detail_link=>'N'
 ,p_enable_mail_download=>'Y'
@@ -484,11 +482,11 @@ unistr('em realizar doa\00E7\00F5es, agrupando informa\00E7\00F5es de institui\0
 );
 wwv_flow_imp_page.create_page_button(
  p_id=>wwv_flow_imp.id(18710189323235635822)
-,p_button_sequence=>30
+,p_button_sequence=>50
 ,p_button_plug_id=>wwv_flow_imp.id(28778814052721289980)
 ,p_button_name=>'PESQUISAR'
 ,p_button_action=>'DEFINED_BY_DA'
-,p_button_template_options=>'#DEFAULT#:t-Button--large:t-Button--iconLeft:t-Button--gapTop'
+,p_button_template_options=>'#DEFAULT#:t-Button--large:t-Button--iconLeft:t-Button--stretch:t-Button--gapTop'
 ,p_button_template_id=>wwv_flow_imp.id(34219730962669841643)
 ,p_button_is_hot=>'Y'
 ,p_button_image_alt=>'Pesquisar'
@@ -496,45 +494,76 @@ wwv_flow_imp_page.create_page_button(
 ,p_warn_on_unsaved_changes=>null
 ,p_icon_css_classes=>'fa-search'
 ,p_grid_new_row=>'N'
-,p_grid_column_span=>1
-,p_grid_column=>8
+,p_grid_new_column=>'Y'
+,p_grid_column_span=>2
 );
 wwv_flow_imp_page.create_page_button(
  p_id=>wwv_flow_imp.id(18710189747248635822)
-,p_button_sequence=>40
+,p_button_sequence=>60
 ,p_button_plug_id=>wwv_flow_imp.id(28778814052721289980)
 ,p_button_name=>'Limpar'
 ,p_button_action=>'DEFINED_BY_DA'
-,p_button_template_options=>'#DEFAULT#:t-Button--large:t-Button--gapLeft:t-Button--gapTop'
+,p_button_template_options=>'#DEFAULT#:t-Button--large:t-Button--stretch:t-Button--gapLeft:t-Button--gapTop'
 ,p_button_template_id=>wwv_flow_imp.id(34219730802335841643)
 ,p_button_image_alt=>'Limpar Filtros'
 ,p_button_execute_validations=>'N'
 ,p_warn_on_unsaved_changes=>null
 ,p_grid_new_row=>'N'
-,p_grid_column=>9
+,p_grid_new_column=>'Y'
+,p_grid_column_span=>2
 );
 wwv_flow_imp_page.create_page_item(
- p_id=>wwv_flow_imp.id(18710190172181635822)
-,p_name=>'P100_MUNICIPIO'
-,p_item_sequence=>10
+ p_id=>wwv_flow_imp.id(666864907533967224)
+,p_name=>'P100_CEP'
+,p_item_sequence=>30
 ,p_item_plug_id=>wwv_flow_imp.id(28778814052721289980)
 ,p_use_cache_before_default=>'NO'
-,p_prompt=>unistr('Munic\00EDpio')
-,p_display_as=>'NATIVE_POPUP_LOV'
-,p_lov=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'select STRMUNICIPIO as display_value, ID as return_value ',
-'from MUNICIPIO',
-'order by STRMUNICIPIO'))
-,p_lov_display_null=>'YES'
+,p_prompt=>'CEP'
+,p_display_as=>'NATIVE_TEXT_FIELD'
 ,p_cSize=>30
+,p_begin_on_new_line=>'N'
+,p_colspan=>3
 ,p_field_template=>wwv_flow_imp.id(34219728370103841642)
 ,p_item_template_options=>'#DEFAULT#'
-,p_lov_display_extra=>'YES'
-,p_attribute_01=>'POPUP'
-,p_attribute_02=>'FIRST_ROWSET'
-,p_attribute_03=>'N'
-,p_attribute_04=>'N'
-,p_attribute_05=>'N'
+,p_attribute_01=>'N'
+,p_attribute_02=>'N'
+,p_attribute_04=>'TEXT'
+,p_attribute_05=>'BOTH'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(666865081487967225)
+,p_name=>'P100_BAIRRO_CIDADE'
+,p_item_sequence=>40
+,p_item_plug_id=>wwv_flow_imp.id(28778814052721289980)
+,p_use_cache_before_default=>'NO'
+,p_prompt=>'Filtro por:'
+,p_display_as=>'NATIVE_RADIOGROUP'
+,p_lov=>'STATIC:Bairro;1,Cidade;2'
+,p_begin_on_new_line=>'N'
+,p_colspan=>2
+,p_field_template=>wwv_flow_imp.id(34219728370103841642)
+,p_item_template_options=>'#DEFAULT#'
+,p_lov_display_extra=>'NO'
+,p_attribute_01=>'2'
+,p_attribute_02=>'NONE'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(666865319431967228)
+,p_name=>'P100_CIDADE'
+,p_item_sequence=>70
+,p_item_plug_id=>wwv_flow_imp.id(28778814052721289980)
+,p_use_cache_before_default=>'NO'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'N'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(666865462880967229)
+,p_name=>'P100_BAIRRO'
+,p_item_sequence=>80
+,p_item_plug_id=>wwv_flow_imp.id(28778814052721289980)
+,p_use_cache_before_default=>'NO'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'N'
 );
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(18710190500953635823)
@@ -542,7 +571,7 @@ wwv_flow_imp_page.create_page_item(
 ,p_item_sequence=>20
 ,p_item_plug_id=>wwv_flow_imp.id(28778814052721289980)
 ,p_use_cache_before_default=>'NO'
-,p_prompt=>'Item'
+,p_prompt=>'Itens Aceitos'
 ,p_display_as=>'NATIVE_POPUP_LOV'
 ,p_lov=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'select ',
@@ -553,6 +582,7 @@ wwv_flow_imp_page.create_page_item(
 ,p_lov_null_text=>'Todos'
 ,p_cSize=>30
 ,p_begin_on_new_line=>'N'
+,p_colspan=>3
 ,p_field_template=>wwv_flow_imp.id(34219728370103841642)
 ,p_item_template_options=>'#DEFAULT#'
 ,p_lov_display_extra=>'YES'
@@ -607,7 +637,7 @@ wwv_flow_imp_page.create_page_da_action(
 ,p_execute_on_page_init=>'N'
 ,p_action=>'NATIVE_CLEAR'
 ,p_affected_elements_type=>'ITEM'
-,p_affected_elements=>'P100_MUNICIPIO,P100_ITENS'
+,p_affected_elements=>'P100_ITENS'
 );
 wwv_flow_imp_page.create_page_da_action(
  p_id=>wwv_flow_imp.id(18710193687040635827)
@@ -618,6 +648,65 @@ wwv_flow_imp_page.create_page_da_action(
 ,p_action=>'NATIVE_REFRESH'
 ,p_affected_elements_type=>'REGION'
 ,p_affected_region_id=>wwv_flow_imp.id(28778812828794289968)
+);
+wwv_flow_imp_page.create_page_da_event(
+ p_id=>wwv_flow_imp.id(666865111674967226)
+,p_name=>'set_values'
+,p_event_sequence=>30
+,p_triggering_element_type=>'ITEM'
+,p_triggering_element=>'P100_CEP'
+,p_bind_type=>'bind'
+,p_bind_event_type=>'change'
+);
+wwv_flow_imp_page.create_page_da_action(
+ p_id=>wwv_flow_imp.id(666865239904967227)
+,p_event_id=>wwv_flow_imp.id(666865111674967226)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'N'
+,p_action=>'NATIVE_EXECUTE_PLSQL_CODE'
+,p_attribute_01=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'declare',
+'    v_json_api clob;',
+'    v_cep varchar2(8);',
+'begin',
+'    -- limpa',
+'    apex_web_service.g_request_headers.delete();',
+'',
+'    v_cep := :P100_CEP;',
+'    ',
+'    v_json_api := apex_web_service.make_rest_request(',
+'        p_url => ''https://viacep.com.br/ws/''||v_cep||''/json/'',',
+'        p_http_method => ''GET''',
+'    );',
+'',
+'    for cur in (',
+'        select ',
+'         bairro',
+'        , localidade',
+'',
+'        from json_table (',
+'            v_json_api format json, ''$''columns(',
+'                 bairro varchar2(100) path ''$.bairro''',
+'                , localidade varchar2(100) path ''$.localidade''',
+'',
+'            )',
+'        )',
+'    ) loop',
+'        :P100_BAIRRO          := cur.bairro;',
+'        :P100_CIDADE  := cur.localidade;',
+'    end loop;',
+'exception ',
+'    when others then',
+'        apex_error.add_error (',
+'            p_message          => ''Erro ao requisitar CEP - ''|| sqlerrm,',
+'            p_display_location => apex_error.c_inline_in_notification );',
+'end;'))
+,p_attribute_02=>'P100_CEP'
+,p_attribute_03=>'P100_CIDADE,P100_BAIRRO'
+,p_attribute_04=>'N'
+,p_attribute_05=>'PLSQL'
+,p_wait_for_result=>'Y'
 );
 end;
 /
