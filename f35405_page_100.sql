@@ -28,7 +28,7 @@ prompt APPLICATION 35405 - Projeto DoAção
 -- Application Export:
 --   Application:     35405
 --   Name:            Projeto DoAção
---   Date and Time:   22:50 Tuesday May 31, 2022
+--   Date and Time:   23:25 Wednesday June 1, 2022
 --   Exported By:     2008214@ALUNO.UNIVESP.BR
 --   Flashback:       0
 --   Export Type:     Page Export
@@ -250,7 +250,7 @@ wwv_flow_imp_page.create_page(
 ,p_rejoin_existing_sessions=>'N'
 ,p_page_component_map=>'18'
 ,p_last_updated_by=>'2008214@ALUNO.UNIVESP.BR'
-,p_last_upd_yyyymmddhh24miss=>'20220531225019'
+,p_last_upd_yyyymmddhh24miss=>'20220601232424'
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(28778812357116289963)
@@ -310,9 +310,21 @@ wwv_flow_imp_page.create_page_plug(
 '         WITHIN GROUP (ORDER BY d.STRITEM) "Emp_list"',
 '         from INSTITENSACEITOS c, ITENS d',
 '        where c.FKEINSTITUICOES = a.id',
-'        and c.FKEITENS = d.id) like ''%'' || nvl(:P100_ITENS,''%'') || ''%'''))
+'        and c.FKEITENS = d.id) like ''%'' || nvl(:P100_ITENS,''%'') || ''%''',
+'        and a.BAIRRO = case when :P100_BAIRRO_CIDADE = 1 --Bairro ',
+'        then :P100_BAIRRO ',
+'        else ',
+'        a.BAIRRO',
+'        end ',
+'        and b.STRMUNICIPIO = case when :P100_BAIRRO_CIDADE = 2 --Bairro ',
+'        then :P100_CIDADE ',
+'        else ',
+'        b.STRMUNICIPIO',
+'        end ',
+'',
+''))
 ,p_plug_source_type=>'NATIVE_IR'
-,p_ajax_items_to_submit=>'P100_ITENS'
+,p_ajax_items_to_submit=>'P100_ITENS,P100_BAIRRO_CIDADE'
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_prn_content_disposition=>'ATTACHMENT'
 ,p_prn_units=>'INCHES'
@@ -637,7 +649,7 @@ wwv_flow_imp_page.create_page_da_action(
 ,p_execute_on_page_init=>'N'
 ,p_action=>'NATIVE_CLEAR'
 ,p_affected_elements_type=>'ITEM'
-,p_affected_elements=>'P100_ITENS'
+,p_affected_elements=>'P100_ITENS,P100_CEP,P100_BAIRRO_CIDADE,P100_CIDADE,P100_BAIRRO'
 );
 wwv_flow_imp_page.create_page_da_action(
  p_id=>wwv_flow_imp.id(18710193687040635827)
