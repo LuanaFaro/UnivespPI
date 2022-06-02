@@ -28,7 +28,7 @@ prompt APPLICATION 35405 - Projeto DoAção
 -- Application Export:
 --   Application:     35405
 --   Name:            Projeto DoAção
---   Date and Time:   23:25 Wednesday June 1, 2022
+--   Date and Time:   00:08 Thursday June 2, 2022
 --   Exported By:     2008214@ALUNO.UNIVESP.BR
 --   Flashback:       0
 --   Export Type:     Page Export
@@ -248,9 +248,9 @@ wwv_flow_imp_page.create_page(
 ,p_page_is_public_y_n=>'Y'
 ,p_deep_linking=>'N'
 ,p_rejoin_existing_sessions=>'N'
-,p_page_component_map=>'18'
+,p_page_component_map=>'23'
 ,p_last_updated_by=>'2008214@ALUNO.UNIVESP.BR'
-,p_last_upd_yyyymmddhh24miss=>'20220601232424'
+,p_last_upd_yyyymmddhh24miss=>'20220601233509'
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(28778812357116289963)
@@ -261,7 +261,7 @@ wwv_flow_imp_page.create_page_plug(
 ,p_plug_display_sequence=>10
 ,p_include_in_reg_disp_sel_yn=>'Y'
 ,p_plug_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'<img src="#APP_FILES#capa.jpeg" style="width:100%;height:380px;">',
+'<img src="#APP_FILES#capa.png" style="width:100%;height:380px;">',
 ''))
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_attribute_01=>'N'
@@ -270,7 +270,7 @@ wwv_flow_imp_page.create_page_plug(
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(28778813939387289979)
 ,p_plug_name=>unistr('Institui\00E7\00F5es')
-,p_region_template_options=>'#DEFAULT#:t-Region--noPadding:t-Region--scrollBody'
+,p_region_template_options=>'#DEFAULT#:t-Region--scrollBody'
 ,p_plug_template=>wwv_flow_imp.id(34219665707554841613)
 ,p_plug_display_sequence=>40
 ,p_include_in_reg_disp_sel_yn=>'Y'
@@ -283,22 +283,17 @@ wwv_flow_imp_page.create_page_plug(
 ,p_plug_name=>unistr('Institui\00E7\00F5es')
 ,p_region_name=>'instituicoes'
 ,p_parent_plug_id=>wwv_flow_imp.id(28778813939387289979)
-,p_region_template_options=>'#DEFAULT#:t-Region--noPadding:is-collapsed:t-Region--scrollBody'
-,p_component_template_options=>'#DEFAULT#'
-,p_plug_template=>wwv_flow_imp.id(34219646122204841605)
+,p_region_template_options=>'#DEFAULT#'
+,p_plug_template=>wwv_flow_imp.id(34219637934656841602)
 ,p_plug_display_sequence=>20
 ,p_plug_display_point=>'SUB_REGIONS'
 ,p_query_type=>'SQL'
 ,p_plug_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'select a.ID,',
 '       a.STRNOME,',
-'       a.STRLOUGADOURO,',
-'       a.INTNUMERO,',
-'       a.BAIRRO,',
-'       a.INTTELEFONE,',
-'       a.STREMAIL,',
-'       b.STRMUNICIPIO,',
-'       (select  LISTAGG(d.STRITEM, ''</br>'')',
+'       a.STRLOUGADOURO || '', ''||  a.INTNUMERO || '', '' || a.BAIRRO || '' - ''  || b.STRMUNICIPIO AS ENDERECO,',
+'       ''Telefone: '' || a.INTTELEFONE || '' Email: '' || a.STREMAIL AS COMUNICACAO,',
+'       (select  LISTAGG(d.STRITEM, '', '')',
 '         WITHIN GROUP (ORDER BY d.STRITEM) "Emp_list"',
 '         from INSTITENSACEITOS c, ITENS d',
 '        where c.FKEINSTITUICOES = a.id',
@@ -323,153 +318,37 @@ wwv_flow_imp_page.create_page_plug(
 '        end ',
 '',
 ''))
-,p_plug_source_type=>'NATIVE_IR'
-,p_ajax_items_to_submit=>'P100_ITENS,P100_BAIRRO_CIDADE'
-,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
-,p_prn_content_disposition=>'ATTACHMENT'
-,p_prn_units=>'INCHES'
-,p_prn_paper_size=>'LETTER'
-,p_prn_width=>11
-,p_prn_height=>8.5
-,p_prn_orientation=>'HORIZONTAL'
-,p_prn_page_header=>unistr('Institui\00E7\00F5es')
-,p_prn_page_header_font_color=>'#000000'
-,p_prn_page_header_font_family=>'Helvetica'
-,p_prn_page_header_font_weight=>'normal'
-,p_prn_page_header_font_size=>'12'
-,p_prn_page_footer_font_color=>'#000000'
-,p_prn_page_footer_font_family=>'Helvetica'
-,p_prn_page_footer_font_weight=>'normal'
-,p_prn_page_footer_font_size=>'12'
-,p_prn_header_bg_color=>'#EEEEEE'
-,p_prn_header_font_color=>'#000000'
-,p_prn_header_font_family=>'Helvetica'
-,p_prn_header_font_weight=>'bold'
-,p_prn_header_font_size=>'10'
-,p_prn_body_bg_color=>'#FFFFFF'
-,p_prn_body_font_color=>'#000000'
-,p_prn_body_font_family=>'Helvetica'
-,p_prn_body_font_weight=>'normal'
-,p_prn_body_font_size=>'10'
-,p_prn_border_width=>.5
-,p_prn_page_header_alignment=>'CENTER'
-,p_prn_page_footer_alignment=>'CENTER'
-,p_prn_border_color=>'#666666'
-);
-wwv_flow_imp_page.create_worksheet(
- p_id=>wwv_flow_imp.id(28778812917517289969)
-,p_max_row_count=>'1000000'
-,p_pagination_type=>'ROWS_X_TO_Y'
-,p_pagination_display_pos=>'BOTTOM_RIGHT'
-,p_show_search_bar=>'N'
 ,p_lazy_loading=>false
-,p_show_detail_link=>'N'
-,p_enable_mail_download=>'Y'
-,p_owner=>'LUANA'
-,p_internal_uid=>28778812917517289969
+,p_plug_source_type=>'NATIVE_CARDS'
+,p_ajax_items_to_submit=>'P100_ITENS,P100_BAIRRO_CIDADE'
+,p_plug_query_num_rows_type=>'SCROLL'
+,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_show_total_row_count=>false
 );
-wwv_flow_imp_page.create_worksheet_column(
- p_id=>wwv_flow_imp.id(18710185133732635814)
-,p_db_column_name=>'ID'
-,p_display_order=>10
-,p_column_identifier=>'A'
-,p_column_label=>'Id'
-,p_column_type=>'NUMBER'
-,p_display_text_as=>'HIDDEN_ESCAPE_SC'
-,p_use_as_row_header=>'N'
-);
-wwv_flow_imp_page.create_worksheet_column(
- p_id=>wwv_flow_imp.id(18710185575070635815)
-,p_db_column_name=>'STRNOME'
-,p_display_order=>20
-,p_column_identifier=>'B'
-,p_column_label=>unistr('Institui\00E7\00E3o')
-,p_column_type=>'STRING'
-,p_use_as_row_header=>'N'
-);
-wwv_flow_imp_page.create_worksheet_column(
- p_id=>wwv_flow_imp.id(18710185982371635815)
-,p_db_column_name=>'STRLOUGADOURO'
-,p_display_order=>30
-,p_column_identifier=>'C'
-,p_column_label=>'Lougradouro'
-,p_column_type=>'STRING'
-,p_use_as_row_header=>'N'
-);
-wwv_flow_imp_page.create_worksheet_column(
- p_id=>wwv_flow_imp.id(18710186370952635815)
-,p_db_column_name=>'INTNUMERO'
-,p_display_order=>40
-,p_column_identifier=>'D'
-,p_column_label=>unistr('N\00FAmero')
-,p_column_type=>'NUMBER'
-,p_column_alignment=>'RIGHT'
-,p_use_as_row_header=>'N'
-);
-wwv_flow_imp_page.create_worksheet_column(
- p_id=>wwv_flow_imp.id(18710186769884635816)
-,p_db_column_name=>'BAIRRO'
-,p_display_order=>50
-,p_column_identifier=>'E'
-,p_column_label=>'Bairro'
-,p_column_type=>'STRING'
-,p_use_as_row_header=>'N'
-);
-wwv_flow_imp_page.create_worksheet_column(
- p_id=>wwv_flow_imp.id(18710187167937635816)
-,p_db_column_name=>'INTTELEFONE'
-,p_display_order=>60
-,p_column_identifier=>'F'
-,p_column_label=>'Telefone'
-,p_column_type=>'NUMBER'
-,p_column_alignment=>'RIGHT'
-,p_use_as_row_header=>'N'
-);
-wwv_flow_imp_page.create_worksheet_column(
- p_id=>wwv_flow_imp.id(18710187531374635816)
-,p_db_column_name=>'STREMAIL'
-,p_display_order=>70
-,p_column_identifier=>'G'
-,p_column_label=>'Email'
-,p_column_type=>'STRING'
-,p_use_as_row_header=>'N'
-);
-wwv_flow_imp_page.create_worksheet_column(
- p_id=>wwv_flow_imp.id(18710187957393635816)
-,p_db_column_name=>'STRMUNICIPIO'
-,p_display_order=>80
-,p_column_identifier=>'H'
-,p_column_label=>unistr('Munic\00EDpio')
-,p_column_type=>'STRING'
-,p_use_as_row_header=>'N'
-);
-wwv_flow_imp_page.create_worksheet_column(
- p_id=>wwv_flow_imp.id(18710188383176635817)
-,p_db_column_name=>'ITENS'
-,p_display_order=>90
-,p_column_identifier=>'I'
-,p_column_label=>'Itens Aceitos'
-,p_column_type=>'STRING'
-,p_display_text_as=>'WITHOUT_MODIFICATION'
-,p_format_mask=>'PCT_GRAPH:::'
-,p_use_as_row_header=>'N'
-);
-wwv_flow_imp_page.create_worksheet_rpt(
- p_id=>wwv_flow_imp.id(28786667806260642735)
-,p_application_user=>'APXWS_DEFAULT'
-,p_report_seq=>10
-,p_report_alias=>'98450273'
-,p_status=>'PUBLIC'
-,p_is_default=>'Y'
-,p_display_rows=>10
-,p_report_columns=>'ID:STRNOME:STRLOUGADOURO:INTNUMERO:BAIRRO:INTTELEFONE:STREMAIL:STRMUNICIPIO:ITENS'
+wwv_flow_imp_page.create_card(
+ p_id=>wwv_flow_imp.id(666865544696967230)
+,p_region_id=>wwv_flow_imp.id(28778812828794289968)
+,p_layout_type=>'GRID'
+,p_title_adv_formatting=>false
+,p_title_column_name=>'STRNOME'
+,p_sub_title_adv_formatting=>false
+,p_sub_title_column_name=>'ENDERECO'
+,p_body_adv_formatting=>false
+,p_body_column_name=>'ITENS'
+,p_second_body_adv_formatting=>false
+,p_second_body_column_name=>'COMUNICACAO'
+,p_icon_source_type=>'STATIC_CLASS'
+,p_icon_css_classes=>'fa-heartbeat'
+,p_icon_position=>'START'
+,p_media_adv_formatting=>false
+,p_pk1_column_name=>'ID'
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(28778814052721289980)
 ,p_plug_name=>'Filtros'
 ,p_parent_plug_id=>wwv_flow_imp.id(28778813939387289979)
-,p_region_template_options=>'#DEFAULT#:is-expanded:t-Region--scrollBody:margin-top-sm'
-,p_plug_template=>wwv_flow_imp.id(34219646122204841605)
+,p_region_template_options=>'#DEFAULT#'
+,p_plug_template=>wwv_flow_imp.id(34219634747259841600)
 ,p_plug_display_sequence=>10
 ,p_plug_display_point=>'SUB_REGIONS'
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
