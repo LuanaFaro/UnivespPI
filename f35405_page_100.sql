@@ -28,7 +28,7 @@ prompt APPLICATION 35405 - Projeto DoAção
 -- Application Export:
 --   Application:     35405
 --   Name:            Projeto DoAção
---   Date and Time:   00:08 Thursday June 2, 2022
+--   Date and Time:   21:16 Sunday June 5, 2022
 --   Exported By:     2008214@ALUNO.UNIVESP.BR
 --   Flashback:       0
 --   Export Type:     Page Export
@@ -250,7 +250,7 @@ wwv_flow_imp_page.create_page(
 ,p_rejoin_existing_sessions=>'N'
 ,p_page_component_map=>'23'
 ,p_last_updated_by=>'2008214@ALUNO.UNIVESP.BR'
-,p_last_upd_yyyymmddhh24miss=>'20220601233509'
+,p_last_upd_yyyymmddhh24miss=>'20220605211538'
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(28778812357116289963)
@@ -320,7 +320,7 @@ wwv_flow_imp_page.create_page_plug(
 ''))
 ,p_lazy_loading=>false
 ,p_plug_source_type=>'NATIVE_CARDS'
-,p_ajax_items_to_submit=>'P100_ITENS,P100_BAIRRO_CIDADE'
+,p_ajax_items_to_submit=>'P100_ITENS,P100_BAIRRO_CIDADE,P100_CIDADE,P100_BAIRRO'
 ,p_plug_query_num_rows_type=>'SCROLL'
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_show_total_row_count=>false
@@ -451,6 +451,15 @@ wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(666865462880967229)
 ,p_name=>'P100_BAIRRO'
 ,p_item_sequence=>80
+,p_item_plug_id=>wwv_flow_imp.id(28778814052721289980)
+,p_use_cache_before_default=>'NO'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'N'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(666865970276967234)
+,p_name=>'P100_IP'
+,p_item_sequence=>90
 ,p_item_plug_id=>wwv_flow_imp.id(28778814052721289980)
 ,p_use_cache_before_default=>'NO'
 ,p_display_as=>'NATIVE_HIDDEN'
@@ -596,6 +605,54 @@ wwv_flow_imp_page.create_page_da_action(
 ,p_attribute_02=>'P100_CEP'
 ,p_attribute_03=>'P100_CIDADE,P100_BAIRRO'
 ,p_attribute_04=>'N'
+,p_attribute_05=>'PLSQL'
+,p_wait_for_result=>'Y'
+);
+wwv_flow_imp_page.create_page_da_event(
+ p_id=>wwv_flow_imp.id(666865766547967232)
+,p_name=>'busca_ip'
+,p_event_sequence=>40
+,p_bind_type=>'bind'
+,p_bind_event_type=>'ready'
+);
+wwv_flow_imp_page.create_page_da_action(
+ p_id=>wwv_flow_imp.id(666865849068967233)
+,p_event_id=>wwv_flow_imp.id(666865766547967232)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'N'
+,p_action=>'NATIVE_JAVASCRIPT_CODE'
+,p_attribute_01=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'var result;',
+'',
+' fetch(''https://api.ipify.org/?format=json'')',
+'      .then(res => {return res.json()})',
+'      .then(',
+'        (result) => {',
+'              apex.item(''P100_IP'').setValue(result.ip);',
+'        })',
+'      .catch((error) => { window.alert("error", error);',
+'        console.log("authentication failed");',
+'      });'))
+);
+wwv_flow_imp_page.create_page_da_event(
+ p_id=>wwv_flow_imp.id(666866195130967236)
+,p_name=>'grava_acesso'
+,p_event_sequence=>50
+,p_triggering_element_type=>'ITEM'
+,p_triggering_element=>'P100_IP'
+,p_bind_type=>'bind'
+,p_bind_event_type=>'change'
+);
+wwv_flow_imp_page.create_page_da_action(
+ p_id=>wwv_flow_imp.id(666866002639967235)
+,p_event_id=>wwv_flow_imp.id(666866195130967236)
+,p_event_result=>'TRUE'
+,p_action_sequence=>20
+,p_execute_on_page_init=>'N'
+,p_action=>'NATIVE_EXECUTE_PLSQL_CODE'
+,p_attribute_01=>'insert into log_acesso values(:P100_IP, sysdate);'
+,p_attribute_02=>'P100_IP'
 ,p_attribute_05=>'PLSQL'
 ,p_wait_for_result=>'Y'
 );
