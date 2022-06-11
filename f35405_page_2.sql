@@ -28,7 +28,7 @@ prompt APPLICATION 35405 - Projeto DoAção
 -- Application Export:
 --   Application:     35405
 --   Name:            Projeto DoAção
---   Date and Time:   23:18 Tuesday May 10, 2022
+--   Date and Time:   14:43 Saturday June 11, 2022
 --   Exported By:     2008214@ALUNO.UNIVESP.BR
 --   Flashback:       0
 --   Export Type:     Page Export
@@ -62,7 +62,7 @@ wwv_flow_imp_page.create_page(
 ,p_protection_level=>'C'
 ,p_page_component_map=>'02'
 ,p_last_updated_by=>'2008214@ALUNO.UNIVESP.BR'
-,p_last_upd_yyyymmddhh24miss=>'20220510231415'
+,p_last_upd_yyyymmddhh24miss=>'20220611144105'
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(9771275691361512400)
@@ -289,8 +289,11 @@ wwv_flow_imp_page.create_page_item(
 'select ',
 '    STRITEM as display_value',
 '    ,id as return_value',
-'from itens'))
+'from itens ',
+'where id not in (select FKEITENS from INSTITENSACEITOS where FKEINSTITUICOES = :P2_ID)'))
 ,p_lov_display_null=>'YES'
+,p_lov_cascade_parent_items=>'P2_ID'
+,p_ajax_optimize_refresh=>'Y'
 ,p_cSize=>30
 ,p_colspan=>5
 ,p_field_template=>wwv_flow_imp.id(34219728370103841642)
@@ -514,6 +517,17 @@ wwv_flow_imp_page.create_page_validation(
 ,p_validation_type=>'ITEM_IS_TIMESTAMP'
 ,p_error_message=>'#LABEL# must be a valid timestamp.'
 ,p_associated_item=>wwv_flow_imp.id(9771422209089553942)
+,p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION'
+);
+wwv_flow_imp_page.create_page_validation(
+ p_id=>wwv_flow_imp.id(666866596676967240)
+,p_validation_name=>'vld_instituicao'
+,p_validation_sequence=>80
+,p_validation=>'select * from instituicoes where UPPER(TRIM(STRNOME)) =  UPPER(TRIM(:P2_STRNOME))'
+,p_validation_type=>'NOT_EXISTS'
+,p_error_message=>unistr('Institui\00E7\00E3o j\00E1 cadastrada.')
+,p_when_button_pressed=>wwv_flow_imp.id(9771426859040553944)
+,p_associated_item=>wwv_flow_imp.id(9771419819756553940)
 ,p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION'
 );
 wwv_flow_imp_page.create_page_process(
