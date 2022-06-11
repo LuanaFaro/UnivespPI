@@ -28,7 +28,7 @@ prompt APPLICATION 35405 - Projeto DoAção
 -- Application Export:
 --   Application:     35405
 --   Name:            Projeto DoAção
---   Date and Time:   23:18 Tuesday May 10, 2022
+--   Date and Time:   14:41 Saturday June 11, 2022
 --   Exported By:     2008214@ALUNO.UNIVESP.BR
 --   Flashback:       0
 --   Export Type:     Page Export
@@ -63,8 +63,8 @@ wwv_flow_imp_page.create_page(
 '}*/'))
 ,p_page_template_options=>'#DEFAULT#'
 ,p_page_component_map=>'13'
-,p_last_updated_by=>'LUANA'
-,p_last_upd_yyyymmddhh24miss=>'20211107154206'
+,p_last_updated_by=>'2008214@ALUNO.UNIVESP.BR'
+,p_last_upd_yyyymmddhh24miss=>'20220611133409'
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(9771271154861512354)
@@ -242,6 +242,25 @@ wwv_flow_imp_page.create_page_button(
 ,p_button_position=>'RIGHT_OF_IR_SEARCH_BAR'
 ,p_button_redirect_url=>'f?p=&APP_ID.:2:&SESSION.::&DEBUG.:2::'
 ,p_icon_css_classes=>'fa-plus-square-o'
+);
+wwv_flow_imp_page.create_page_da_event(
+ p_id=>wwv_flow_imp.id(666866368092967238)
+,p_name=>'Refresh'
+,p_event_sequence=>10
+,p_triggering_element_type=>'REGION'
+,p_triggering_region_id=>wwv_flow_imp.id(9771271183749512355)
+,p_bind_type=>'bind'
+,p_bind_event_type=>'apexafterclosecanceldialog'
+);
+wwv_flow_imp_page.create_page_da_action(
+ p_id=>wwv_flow_imp.id(666866413868967239)
+,p_event_id=>wwv_flow_imp.id(666866368092967238)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'N'
+,p_action=>'NATIVE_REFRESH'
+,p_affected_elements_type=>'REGION'
+,p_affected_region_id=>wwv_flow_imp.id(9771271183749512355)
 );
 end;
 /
