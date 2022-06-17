@@ -14,7 +14,7 @@ whenever sqlerror exit sql.sqlcode rollback
 begin
 wwv_flow_imp.import_begin (
  p_version_yyyy_mm_dd=>'2022.04.12'
-,p_release=>'22.1.0'
+,p_release=>'22.1.1'
 ,p_default_workspace_id=>229530610947369368
 ,p_default_application_id=>35405
 ,p_default_id_offset=>231456681126401453
@@ -28,14 +28,14 @@ prompt APPLICATION 35405 - Projeto DoAção
 -- Application Export:
 --   Application:     35405
 --   Name:            Projeto DoAção
---   Date and Time:   21:16 Sunday June 5, 2022
+--   Date and Time:   18:42 Friday June 17, 2022
 --   Exported By:     2008214@ALUNO.UNIVESP.BR
 --   Flashback:       0
 --   Export Type:     Page Export
 --   Manifest
 --     PAGE: 100
 --   Manifest End
---   Version:         22.1.0
+--   Version:         22.1.1
 --   Instance ID:     63113759365424
 --
 
@@ -54,8 +54,9 @@ wwv_flow_imp_page.create_page(
  p_id=>100
 ,p_user_interface_id=>wwv_flow_imp.id(34219755303665841654)
 ,p_name=>unistr('Projeto DoA\00E7\00E3o')
-,p_alias=>unistr('PROJETO-DOA\00C7\00C3O1')
+,p_alias=>'PROJETO-DOACAO'
 ,p_step_title=>unistr('Projeto DoA\00E7\00E3o')
+,p_warn_on_unsaved_changes=>'N'
 ,p_autocomplete_on_off=>'OFF'
 ,p_html_page_header=>wwv_flow_string.join(wwv_flow_t_varchar2(
 '<div vw class="enabled">',
@@ -250,7 +251,7 @@ wwv_flow_imp_page.create_page(
 ,p_rejoin_existing_sessions=>'N'
 ,p_page_component_map=>'23'
 ,p_last_updated_by=>'2008214@ALUNO.UNIVESP.BR'
-,p_last_upd_yyyymmddhh24miss=>'20220605211538'
+,p_last_upd_yyyymmddhh24miss=>'20220617114856'
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(28778812357116289963)
@@ -320,9 +321,10 @@ wwv_flow_imp_page.create_page_plug(
 ''))
 ,p_lazy_loading=>false
 ,p_plug_source_type=>'NATIVE_CARDS'
-,p_ajax_items_to_submit=>'P100_ITENS,P100_BAIRRO_CIDADE,P100_CIDADE,P100_BAIRRO'
+,p_ajax_items_to_submit=>'P100_ITENS,P100_BAIRRO_CIDADE,P100_CIDADE,P100_BAIRRO,P100_CEP'
 ,p_plug_query_num_rows_type=>'SCROLL'
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_plug_query_no_data_found=>unistr('N\00E3o existem institui\00E7\00F5es cadastradas de acordo com os filtros aplicados. Remova os filtros.')
 ,p_show_total_row_count=>false
 );
 wwv_flow_imp_page.create_card(
@@ -364,7 +366,7 @@ wwv_flow_imp_page.create_page_plug(
 ,p_include_in_reg_disp_sel_yn=>'Y'
 ,p_plug_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
 unistr('O Projeto DoA\00E7\00E3o \00E9 uma iniciativa dos graduandos em computa\00E7\00E3o da Universidade Virtual do Estado '),
-unistr('de S\00E3o Paulo (UNIVESP) - Polo de Caraguatatuba, com o objetivo de amenizar a dificuldade das pessoas'),
+unistr('de S\00E3o Paulo (UNIVESP) - Polo de Caraguatatuba/ Polo de Campinas, com o objetivo de amenizar a dificuldade das pessoas'),
 unistr('em realizar doa\00E7\00F5es, agrupando informa\00E7\00F5es de institui\00E7\00F5es que aceitam doa\00E7\00F5es, desta maneira o doador pode '),
 'encontrar com mais facilidade onde doar seus pertences.'))
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
@@ -579,6 +581,7 @@ wwv_flow_imp_page.create_page_da_action(
 '        p_url => ''https://viacep.com.br/ws/''||v_cep||''/json/'',',
 '        p_http_method => ''GET''',
 '    );',
+'',
 '',
 '    for cur in (',
 '        select ',
